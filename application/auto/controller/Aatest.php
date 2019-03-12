@@ -48,7 +48,7 @@ class Aatest {
 
         $fiels = '`uid` as `user_id`,`openid`,`isagent`,`level`,`flag`';
 
-        $sql = "select $fiels from `hs_sz_yi_member` where flag = 0 order by uid desc limit 20";
+        $sql = "select $fiels from `hs_sz_yi_member` where flag = 0 order by uid desc limit 200";
 
         $res = Db::connect($dbconf1)->query($sql);
 
