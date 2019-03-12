@@ -54,6 +54,8 @@ class Aatest {
         if($res){
 
             foreach($res as $v){
+                $sql3 = "UPDATE `hs_sz_yi_member` SET flag = 1 WHERE openid = '$v[openid]'";
+                Db::connect($dbconf1)->execute($sql3);
                 $sql1 = "select `uid` from hs_sz_yi_member where openid='$v[openid]'";
                 $insql = "select mc.openid,sum(mc.teams)+sum(mc.total) total from hs_sz_yi_bonusorder mc where mc.openid='$v[openid]'";
                 
@@ -72,8 +74,7 @@ class Aatest {
                     continue;
                 }
                 Db::connect($dbconf2)->execute($insql1);
-                $sql3 = "UPDATE `hs_sz_yi_member` SET flag = 1 WHERE openid = '$v[openid]'";
-                Db::connect($dbconf1)->execute($sql3);
+                
                 $insql = '';
             }
             echo $res[count($res) - 1]['user_id'];
