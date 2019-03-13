@@ -46,16 +46,16 @@ class Aatest {
 
         // $fiels = "`uid` as `user_id`,`openid`,`nickname`,`realname`,`mobile`,`weixin`,`isagent`,`avatar` as `head_pic`,`province`,`city`,`alipay`";
 
-        $fiels = '`uid` as `user_id`,`openid`,`isagent`,`level`,`flag`';
-
-        $sql = "select $fiels from `hs_sz_yi_member` where flag = 0 order by uid desc limit 200";
+        $fiels = '`uid` as `user_id`,`openid`,`falg`';
+        // desc 
+        $sql = "select $fiels from `hs_sz_yi_member` where falg = 0 and uid > 0 order by uid asc limit 100";
 
         $res = Db::connect($dbconf1)->query($sql);
-
+        // dump($res);die;
         if($res){
 
             foreach($res as $v){
-
+                
                 $sql1 = "select `uid` from hs_sz_yi_member where openid='$v[openid]'";
                 $insql = "select mc.openid,sum(mc.teams)+sum(mc.total) total from hs_sz_yi_bonusorder mc where mc.openid='$v[openid]'";
                 
@@ -66,31 +66,18 @@ class Aatest {
                 $uid = $res1[0]['uid'];
 
                 if($uid == 0){
-                    $sql3 = "UPDATE `hs_sz_yi_member` SET flag = 1 WHERE openid = '$v[openid]'";
+                    $sql3 = "UPDATE `hs_sz_yi_member` SET falg = 1 WHERE openid = '$v[openid]'";
                     Db::connect($dbconf1)->execute($sql3);
-                    echo ',uid=0:'.$uid."。";
+                    // echo ',uid=0:'.$uid."。";
                     continue;
                 }
 
-
-                // $result1 = [];
-                // $result = [];
-                // array_map(function ($value) use (&$result) {
-                //     $result = array_merge($result, array_values($value));
-                // }, $res2);
-
-
-                // array_map(function ($value) use (&$result1) {
-                //     $result1 = array_merge($result1, array_values($value));
-                // }, $res1);
-
-                
                 if($res2[0]['openid'] == null){
-                    $sql3 = "UPDATE `hs_sz_yi_member` SET flag = 1 WHERE openid = '$v[openid]'";
+                    $sql3 = "UPDATE `hs_sz_yi_member` SET falg = 1 WHERE openid = '$v[openid]'";
                     Db::connect($dbconf1)->execute($sql3);
-                    echo ',openid=0:'.$uid."。";
+                    // echo ',openid=0:'.$uid."。";
                     continue;
-                }             
+                }
 
                 $total = $res2[0]['total'];
                
@@ -99,28 +86,14 @@ class Aatest {
                
                 $r = Db::connect($dbconf2)->execute($insql1);
                 if($r == 1){
-                    //ok
-                  
-                    $sql3 = "UPDATE `hs_sz_yi_member` SET flag = 1 WHERE openid = '$v[openid]'";
+                    $sql3 = "UPDATE `hs_sz_yi_member` SET falg = 1 WHERE openid = '$v[openid]'";
                     Db::connect($dbconf1)->execute($sql3);
-
-                    echo ',ok:'.$uid."。";
-
+                    // echo ',ok:'.$uid."。";
                     continue;
                 }else{
-                   
-                    echo ',fail:'.$uid.",";
+                    // echo ',fail:'.$uid.",";
                 }
-
-               
-
             }
-
-           
         }
-       
     }
-
-
-
 }
