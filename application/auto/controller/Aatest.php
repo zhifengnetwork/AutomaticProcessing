@@ -48,7 +48,7 @@ class Aatest {
 
         $fiels = '`uid` as `user_id`,`openid`,`falg`';
         // desc 
-        $sql = "select $fiels from `hs_sz_yi_member` where falg = 0 and uid > 0 order by uid asc limit 100";
+        $sql = "select $fiels from `hs_sz_yi_member` where falg = 0 and uid > 0 order by uid asc limit 400";
 
         $res = Db::connect($dbconf1)->query($sql);
         // dump($res);die;
