@@ -4,16 +4,14 @@ namespace app\auto\controller;
 
 use think\Db;
 
-class Jifen {
+class Money {
 
     /**
-     * 导入积分
-     * 
-     * 注册时间
+     * 导入余额
      */
     public function index(){
 
-        exit('导入完毕');
+      exit('导出完毕');
 
         $dbconf1 = [
             // 数据库类型
@@ -52,30 +50,32 @@ class Jifen {
 
         // $fiels = "`uid` as `user_id`,`openid`,`nickname`,`realname`,`mobile`,`weixin`,`isagent`,`avatar` as `head_pic`,`province`,`city`,`alipay`";
 
-        $fiels = '`uid` as `user_id`,`flag_1`,`createtime`';
+        $fiels = '`uid` as `user_id`,`flag_1`,`credit1`,`credit2`,`credit3`,`credit4`';
         // desc 
-        $sql = "select $fiels from `hs_sz_yi_member` where flag_1 = 0 and uid > 0 order by uid asc limit 300";
+        $sql = "select $fiels from `hs_sz_yi_member` where flag_1 = 1 and uid > 0 order by uid asc limit 300";
 
         $res = Db::connect($dbconf1)->query($sql);
         
-     
+    
 
         if($res){
 
             foreach($res as $v){
                 
                
-                $insql1 = "UPDATE `tp_users` SET reg_time = '$v[createtime]' WHERE user_id = '$v[user_id]'";
+                $money = (float)$v['credit1'] + (float)$v['credit2'] + (float)$v['credit3'] + (float)$v['credit4'];
+                
+
+                $insql1 = "UPDATE `tp_users` SET user_money = '$money' WHERE user_id = '$v[user_id]'";
                 $r = Db::connect($dbconf2)->execute($insql1);
 
 
 
-                $sql3 = "UPDATE `hs_sz_yi_member` SET flag_1 = 1 WHERE uid = '$v[user_id]'";
+                $sql3 = "UPDATE `hs_sz_yi_member` SET flag_1 = 2 WHERE uid = '$v[user_id]'";
                 Db::connect($dbconf1)->execute($sql3);
 
                 //改flag
                 echo $v['user_id'],',';
-                
 
             }
         }
