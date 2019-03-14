@@ -9,6 +9,9 @@ class Aatest {
 
     public function index(){
 
+        exit('导入完毕');
+
+
         $dbconf1 = [
             // 数据库类型
             'type'        => 'mysql',
