@@ -3,6 +3,6 @@ composer.lock
 *.log
 .project
 .vscode
-/application/config_password.php
-/application/datebase.php
-/runtime
+application/config_password.php
+application/datebase.php
+runtime

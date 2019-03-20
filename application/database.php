@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'rm-wz9msz657o82h58g83o.mysql.rds.aliyuncs.com',
+    'hostname'        => '',
     // 数据库名
-    'database'        => 'mobileshop',
+    'database'        => '',
     // 用户名
-    'username'        => 'mobileshop',
+    'username'        => '',
     // 密码
-    'password'        => 'zhifeng123123@',
+    'password'        => '',
     // 端口
     'hostport'        => '',
     // 连接dsn
@@ -52,4 +52,6 @@ return [
     'datetime_format' => 'Y-m-d H:i:s',
     // 是否需要进行SQL性能分析
     'sql_explain'     => false,
+
+    'resultset_type' => '\think\Collection',
 ];
