@@ -4,6 +4,5 @@ composer.lock
 .project
 .vscode
 application/config_password.php
-
-/application/datebase.php
+application/datebase.php
 runtime
