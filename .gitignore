@@ -7,3 +7,5 @@ application/config_password.php
 application/database.php
 runtime
 application/xiaozhu/database.php
+application/*/database.php
+
