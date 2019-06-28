@@ -8,8 +8,8 @@ class Index
      */
     public function index()
     {
-        exit();
-        $con['note'] = array('eq','');
+        
+        $con['note'] = array('neq','分红结束');
         $res = M('hs_sz_yi_invest')->where(['type'=>2])->where($con)->limit(100)->select();
         foreach($res as $k => $v){
             // ["money"] => string(7) "5000.00"
@@ -23,11 +23,12 @@ class Index
                 $m = (float)$v['money'] * 1.8;
             }
             if($money < $m){
-                M('hs_sz_yi_invest')->where(['ordersn'=>$v['ordersn']])->update(['type'=>1,'note'=>'手动更改成分红中']);
+                M('hs_sz_yi_invest')->where(['ordersn'=>$v['ordersn']])->update(['type'=>1,'note'=>'手动更改成分红中20190628']);
             }else{
                 M('hs_sz_yi_invest')->where(['ordersn'=>$v['ordersn']])->update(['note'=>'分红结束']);
             }
         }
         dump($res);
+        
     }
 }
