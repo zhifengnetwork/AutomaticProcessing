@@ -151,5 +151,40 @@ class Index
     }
 
 
+    /**
+     * 改状态
+     */
+    public function cc()
+    {
+       
+        
+        // $con['note'] = array('neq','分红结束');
+
+        // ->where(['type'=>2])->where($con)
+
+        // 
+
+        $res = M('hs_sz_yi_invest')->select();
+
+        foreach($res as $k => $v){
+            // ["money"] => string(7) "5000.00"
+            // ["bonus"] => string(7) "9000.00"
+            // ["maxBonus"] => string(4) "2.00"
+            $money =  M('hs_sz_yi_mybonus_log')->where(['openid'=>$v['openid']])->sum('bonus');
+            if((int)$v['maxBonus'] == 1){
+                $m = (float)$v['money'] * 1.5;
+            }
+            if((int)$v['maxBonus'] == 2){
+                $m = (float)$v['money'] * 1.8;
+            }
+            if($money > $m){
+
+                dump($money);
+
+
+            }
+        }
+    }
+
 
 }
