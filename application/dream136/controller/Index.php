@@ -70,6 +70,7 @@ class Index
      */
     public function c()
     {
+        exit;
         
         // $con['note'] = array('neq','分红结束');
 
