@@ -70,7 +70,7 @@ class Index
      */
     public function c()
     {
-        exit;
+       
         
         // $con['note'] = array('neq','分红结束');
 
@@ -93,44 +93,45 @@ class Index
             }
             if($money > $m){
 
-              
-
                 dump("money::".$money);
                 dump("m:::".$m);
 
+                $result = M('hs_sz_yi_mybonus_log')->where(['openid'=>$v['openid']])->order('id desc')->find();
                 
+                // dump($v['id']);
 
-                $rrrrrrrrrrrr = M('hs_sz_yi_mybonus_log')->where(['openid'=>$v['openid']])->order('id desc')->find();
-  // dump($v['id']);
+                // dump($result);
 
+                $result['id1'] = $result['id'];
 
-                // dump($rrrrrrrrrrrr);
-
-                $rrrrrrrrrrrr['id1'] = $rrrrrrrrrrrr['id'];
-
-                unset($rrrrrrrrrrrr['id']);
+                unset($result['id']);
                 
-                dump($rrrrrrrrrrrr);
+                dump($result);
                
-              
-                $rrrrrrrrrrrr['credit3before'] = M('hs_sz_yi_member')->where(['openid'=>$v['openid']])->value('credit3');
-dump($rrrrrrrrrrrr['credit3before']);
+            
 
-dump($rrrrrrrrrrrr['bonus']);
+                $result['credit3before'] = M('hs_sz_yi_member')->where(['openid'=>$v['openid']])->value('credit3');
+
+                dump($result['credit3before']);
+
+                dump($result['bonus']);
+
+
                 // //扣钱
-                $after = (float)$rrrrrrrrrrrr['credit3before'] - (float)$rrrrrrrrrrrr['bonus'];
+                $after = (float)$result['credit3before'] - (float)$result['bonus'];
                 dump($after);
 
 
-                M('hs_sz_yi_member')->where(['openid'=>$v['openid']])->update(['credit3'=> $after ] );
+                $t = M('hs_sz_yi_member')->where(['openid'=>$result['openid']])->update(['credit3'=> $after ] );
+                dump($t);
 
-                $rrrrrrrrrrrr['credit3after'] = M('hs_sz_yi_member')->where(['openid'=>$v['openid']])->value('credit3');
+                $result['credit3after'] = M('hs_sz_yi_member')->where(['openid'=>$v['openid']])->value('credit3');
               
-                M('hs_zy_yi_del_log')->insert($rrrrrrrrrrrr);
+                M('hs_zy_yi_del_log')->insert($result);
 
             
                 
-                M('hs_sz_yi_mybonus_log')->where(['id'=>$rrrrrrrrrrrr['id1']])->delete();
+                M('hs_sz_yi_mybonus_log')->where(['id'=>$result['id1']])->delete();
                 
                 exit;
 
