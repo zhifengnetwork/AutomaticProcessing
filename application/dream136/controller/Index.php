@@ -164,7 +164,7 @@ class Index
 
         // 
 
-        $res = M('hs_sz_yi_invest')->select();
+        $res = M('hs_sz_yi_invest')->field('openid,maxBonus,money')->select();
 
         foreach($res as $k => $v){
             // ["money"] => string(7) "5000.00"
@@ -179,8 +179,7 @@ class Index
             }
             if($money > $m){
 
-                dump($money);
-
+                dump("目前已分红：".$money."。实际上应该分：".$m);
 
             }
         }
